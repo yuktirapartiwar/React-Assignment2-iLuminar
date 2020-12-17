@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>iluminar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+	<style type="text/css">
+
+    body{
+      font-family: sans-serif;
+      display: grid;
+      grid-template-columns: 0.16fr 0.84fr;
+      margin: 0;
+      padding: 0;
+      color: #282828;
+    }
+
+		.sidenav {
+      padding: 20px;
+      height: 100%;
+      box-shadow:  0.0625pc 1px 0.3125pc rgba(0,0,0,.1)
+    }
+
+    .sidenav__logo{
+      padding-left: 10px;
+    }
+
+    .sidenav__title{
+      color: #09C;
+      font-size: 27pt;
+      line-height: 10px;
+    }
+
+    .sidenav__options{
+      margin: 50px 0;
+    }
+
+    .sidenav__options a{
+      color: #484848;
+      display: block;
+      padding: 12px 8px 12px 16px;
+      text-decoration: none;
+      font-size: 15px;
+    }
+    .sidenav__options--active{
+      color: #09C !important;
+      border-left: 5px solid #09C;
+      padding-left: 11px !important;
+    }
+
+    .main-container{
+      padding: 35px 50px;
+    }
+
+    .top-bar{
+      display: flex;
+      flex-direction: row;
+    }
+
+    .search-input{
+      width: 371px;
+      font-size: 20px;
+      padding: 11px 16px;
+      margin: 3px;
+      border-color: #D3D3D3;
+      border-width: 1px;
+      border-radius: 6px;
+    }
+
+    .search-input:focus{
+      outline: none;
+      border-color: #09C;
+      box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .search-btn{
+      color: white;
+      background-color: #09C;
+      border: none;
+      border-radius: 6px;
+      padding: 9px 20px;
+      cursor: pointer;
+    }
+
+    .search-btn:focus{
+      outline:none;
+      box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .top-bar__profile{
+      position: absolute;
+      right: 48px;
+      display: flex;
+      flex-direction: row;
+      cursor: pointer;
+    }
+
+    .dropbtn{
+      cursor: pointer;      
+      border: none;
+      outline: none;
+      background-color: inherit;
+    }
+
+    .dropbtn-position{
+      padding: 20px 0;
+    }
+
+    .content{
+      padding: 1rem;
+    }
+
+    .intro{
+      padding: 16px 0;
+    }
+
+    h2{
+      font-size: 28px; 
+      font-weight: normal;
+    }
+
+    .heading{
+      display: flex;
+      flex-direction: row;
+      padding-top: 10px;
+    }
+
+    .show-all-div{
+      display: flex;
+      flex-direction: row;
+      color: #09C;
+      margin: 16px 0;
+      position: absolute;
+      right: 62px;
+      cursor: pointer;
+    }
+
+    .show-all:hover{
+      text-decoration: underline;
+    }
+
+    h3{
+      font-size: 1.5rem; 
+      font-weight: lighter;
+      margin: 0;
+    }
+
+    .progress-box{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 30px;
+      height: 300px;
+    }
+
+    .progress-card{
+      color: white;
+      padding: 20px;
+      position: relative;
+    }
+
+    .progress-box__title{
+      display: flex;
+      flex-direction: row;
+      position: relative;
+    }
+
+    .ellipsis-h-icon{
+      position: absolute;
+      right: 0px;
+      cursor: pointer;
+    } 
+
+    .progress-bar-container {
+      width:50%;
+      padding: 10px;
+      margin-left: -52px;
+    }
+
+     
+    .progress-box__progress-bar{
+      counter-reset: step;
+    }
+     
+    .progress-box__progress-bar li{
+      list-style-type: none;
+      float: left;
+      width: 20%;
+      position: relative;
+      color: white;
+      text-align: center;
+    }
+     
+    .progress-box__progress-bar li:before{
+      content: counter(step);
+      counter-increment: step;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border: 1px solid #ddd;
+      display: block;
+      text-align: center;
+      margin: 0 auto 10px auto;
+      border-radius: 50%;
+      border-color: #28A740;
+      background-color: #28A740;
+    }
+     
+    .progress-box__progress-bar li:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #28A740;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+    }
+   
+    .progress-box__progress-bar li:first-child:after{
+      content: none; 
+    }
+  
+    .progress-box__progress-bar li.ongoing{
+      color: #28A740;
+    }
+    
+    .progress-box__progress-bar li.ongoing:before{
+      background-color: white;
+      border-color: white;
+    }
+  
+    .progress-box__progress-bar li.ongoing:after{
+      background-color: white;
+    }
+
+    .resume-btn{
+      display: flex;
+      flex-direction: row;
+      color: white;
+      background-color: #28A740;
+      border-radius: 5px;
+      border:none;
+      width: 150px;  
+      position: absolute;
+      bottom: 80px;  
+    }
+
+    .resume-btn p{
+      font-size: 1.1em;
+      margin:10px 0;
+    }
+
+    .resume-btn:hover{
+      cursor: pointer;
+      background-color: green;
+    }
+
+    .resume-btn:focus{
+      outline: none;
+      box-shadow:0 0 0 0.2rem #006600 ;
+    }
+
+    .card-img, .overlay-div{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 14px;
+      background-color: #000;
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    .skills-box{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-column-gap: 28px;
+      grid-row-gap: 20px;
+    }
+
+    .skill-card{
+      border-radius: 16px;
+      height: 154px;
+      color: white;
+      padding: 20px 25px;
+      position: relative;
+    }
+
+    .skill-card-title{
+      display: flex;
+      flex-direction: row;
+      position: relative;
+    }
+
+    .skill-card-title p{
+      margin: 0;
+    }
+
+    .views{
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 7px 0;
+      position: absolute;
+      right: 10px;
+
+    }
+
+    .skill-description{
+      line-height: 25px;
+    }
+
+	</style>
+
+</head>
+
+<body>
+
+     <div class="sidenav">
+
+    <div class="sidenav__logo">
+      <h1 class="sidenav__title">iluminar</h1>
+      <p style="color: #686868;font-size: 16px; font-weight: lighter;">Learn. Build. Change.</p>
+    </div>
+    
+    <div class="sidenav__options">
+      <a href="#home" class="sidenav__options--active">
+        <i class="fa fa-home mr-3 fa-fw" style="padding-right: 20px;"></i> Home</a>
+      <a href="#skills">
+        <i class="fa fa-laptop mr-3 fa-fw" style="padding-right: 20px;"></i> Skills</a>
+      <a href="#your_tracks">
+        <i class="fa fa-play-circle mr-3 fa-fw" style="padding-right: 20px;"></i> Your Tracks</a>
+      <a href="#help_us">
+        <i class="fa fa-users mr-3 fa-fw" style="padding-right: 20px;"></i> Help Us</a>
+    </div>
+    
+  </div>
+
+  <div class="main-container">
+
+    <div class="top-bar">
+      <div class="top-bar__search-container">
+        <form>
+          <input type="text" placeholder="Search technologies, skills, tracks" name="search" class="search-input">
+          <button type="submit" class="search-btn"><i class="fa fa-search" style="font-size: 1.5em"></i></button>
+        </form>
+      </div>
+      <div class="top-bar__profile">
+       <img src="./img-irene.jpg" class="profile-picture" style="border-radius: 50%; width: 56px;">
+       <div class="dropbtn-position">
+         <button class="dropbtn">
+        <i class="fa fa-caret-down" style="color: #505050"></i>
+       </button>
+       </div>
+       
+      </div>
+    </div>
+
+      <div class="intro">
+      <h1 style="font-size: 40px; font-weight: normal; line-height: 50px; ">Looking for a path to follow 
+        <br>
+      or a skill to explore?</h1>
+      <p style="font-size: 19px; font-weight: normal;">We have the most finely curated paths from the industry experts and community for you, Irene!</p>
+    </div>
+
+    <div class="heading">
+      <h2>Tracks you've started</h2>
+      <div class="show-all-div">
+        <i class="fa fa-angle-right" style="margin: 15px 10px;"></i>
+        <p class="show-all">Show All</p>
+      </div>
+    </div>
+
+    <div class="progress-box">
+
+      <div class="progress-card progress-box__one">
+        <img src="./illustration.png" class="card-img">
+        <div class="overlay-div"></div>
+        <div class="progress-box__title">
+          <h3>React Native</h3>
+          <i class="fa fa-ellipsis-h ellipsis-h-icon" style="font-size: 1.35em"></i>
+        </div>
+        <p>App Development</p>
+        <div class="progress-bar-container">
+          <ul class="progress-box__progress-bar">
+            <li></li>
+            <li ></li>
+            <li ></li>
+            <li></li>
+            <li class ="ongoing"></li>
+          </ul>
+        </div>
+        <br>
+        <button class="resume-btn">
+          <i class="fa fa-angle-right" style="margin: auto 11px;"></i>
+          <p>Resume Track</p>
+        </button>
+      </div>
+
+      <div class="progress-card progress-box__two">
+        <img src="./illustration.png" class="card-img">
+        <div class="overlay-div"></div>
+        <div class="progress-box__title">
+          <h3>Machine Learning using Tensorflow</h3>
+          <i class="fa fa-ellipsis-h ellipsis-h-icon"  style="font-size: 1.35em"></i>
+        </div>
+        <p>Machine Learning</p>
+        <div class="progress-bar-container">
+          <ul class="progress-box__progress-bar">
+            <li></li>
+            <li ></li>
+            <li class ="ongoing"></li>
+            <li  class ="ongoing"></li>
+            <li class ="ongoing"></li>
+          </ul>
+        </div>
+        <button class="resume-btn">
+          <i class="fa fa-angle-right" style="margin: auto 11px;"></i>
+          <p>Resume Track</p>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="heading">
+      <h2>Explore Popular Skills</h2>
+      <div class="show-all-div">
+        <i class="fa fa-angle-right" style="margin: 15px 10px;"></i>
+        <p class="show-all">Show All</p>
+      </div>
+    </div>
+
+    <div class="skills-box">
+      
+      <div class="skill-card skill-card-one">
+        <img src="./illustration.png" class="card-img">
+        <div class="overlay-div"></div>
+        <div class="skill-card-title">
+          <h3>Data Science</h3>
+          <div class="views">
+            <i class="fa fa-users mr-3 fa-fw skill-card-img"></i>
+            <p>3.6K</p>
+          </div>
+        </div>
+        <p class="skill-description">An inter-disciplinary field that uses scientific methods to extract knowledge.</p>
+      </div>
+
+      <div class="skill-card skill-card-two">
+        <img src="./illustration.png" class="card-img">
+        <div class="overlay-div"></div>
+        <div class="skill-card-title">
+          <h3>Web Development</h3>
+        <div class="views">
+            <i class="fa fa-users mr-3 fa-fw skill-card-img"></i>
+            <p>3.6K</p>
+          </div>
+        </div>
+        <p class="skill-description">The work involved in developing a website for the Internet or an intranet.</p>
+      </div>
+
+      <div class="skill-card skill-card-three">
+        <img src="./illustration.png" class="card-img">
+        <div class="overlay-div"></div>
+        <div class="skill-card-title">
+          <h3>App Development</h3>
+        <div class="views">
+            <i class="fa fa-users mr-3 fa-fw skill-card-img"></i>
+            <p>3.6K</p>
+          </div>
+        </div>
+        <p class="skill-description">The act or process by which a mobile app is developed for mobile devices</p>
+      </div>
+
+      <div class="skill-card skill-card-four">
+        <img src="./illustration.png" class="card-img">
+        <div class="overlay-div"></div>
+        <div class="skill-card-title">
+          <h3>Machine Learning</h3>
+        <div class="views">
+            <i class="fa fa-users mr-3 fa-fw skill-card-img"></i>
+            <p>3.6K</p>
+          </div>
+        </div>
+        <p class="skill-description">The study of computer algorithms that improve automatically through experience.</p>
+      </div>
+
+      <div class="skill-card skill-card-five">
+        <img src="./illustration.png" class="card-img">
+        <div class="overlay-div"></div>
+        <div class="skill-card-title">
+          <h3>DevOps</h3>
+        <div class="views">
+            <i class="fa fa-users mr-3 fa-fw skill-card-img"></i>
+            <p>3.6K</p>
+          </div>
+        </div>
+        <p class="skill-description">A set of practices that combines software development and IT operations.</p>
+      </div>
+
+      <div class="skill-card skill-card-six">
+        <img src="./illustration.png" class="card-img">
+        <div class="overlay-div"></div>
+        <div class="skill-card-title">
+          <h3>App Development</h3>
+        <div class="views">
+            <i class="fa fa-users mr-3 fa-fw skill-card-img"></i>
+            <p>3.6K</p>
+          </div>
+        </div>
+        <p class="skill-description">The act or process by which a mobile app is developed for mobile devices</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
